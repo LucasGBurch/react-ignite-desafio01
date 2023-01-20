@@ -1,0 +1,12 @@
+.list {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  width: 46rem;
+}
+
+@media (max-width: 768) {
+  .list {
+    width: 27.625rem;
+  }
+}
