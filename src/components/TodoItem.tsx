@@ -15,19 +15,23 @@ export function TodoItem() {
     setIsCompleted((state) => !state);
   }
 
+  const todoStatus = isCompleted ? 'items__textDone' : 'items__textNotDone'
+
   return (
-    <div className={styles.items}>
-      <input
-        defaultChecked={isCompleted}
-        onClick={handleCheckIsCompleted}
-        id='checkboxId'
-        type='radio'
-      />
-      <label htmlFor='checkboxId' />
-      <li>Item de teste</li>
+    <li className={styles.items}>
+      <div className={styles['items__custom-checkbox']}>
+        <input
+          checked={isCompleted}
+          onClick={handleCheckIsCompleted}
+          id='checkboxId'
+          type='radio'
+        />
+        <label htmlFor='checkboxId' />
+      </div>
+      <div className={styles[todoStatus]}><span>Intis vel sed fames integer.</span></div>
       <button title='Deletar Tarefa'>
         <Trash size={24} />
       </button>
-    </div>
+    </li>
   );
 }

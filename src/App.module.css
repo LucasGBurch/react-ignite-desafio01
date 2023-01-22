@@ -1,0 +1,11 @@
+.todo__container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 87.5%; /*de 16px pra 14px, percentual para respeitar os zooms dos usuários e a lógica dos rem */
+  }
+}
