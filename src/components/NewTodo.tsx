@@ -1,10 +1,36 @@
-import styles from './NewTodo.module.css'
+import { ChangeEvent, FormEvent, useState } from 'react';
 
-export function NewTodo() {
+import styles from './NewTodo.module.css';
+
+interface NewTodoProps {
+  createTodo: (text: string) => void;
+}
+
+export function NewTodo({ createTodo }: NewTodoProps) {
+  const [todoText, setTodoText] = useState<string>('');
+
+  function handleTodoTyping(event: ChangeEvent<HTMLInputElement>) {
+    setTodoText(event.target.value);
+  }
+
+  function handleCreateTodo(event: FormEvent) {
+    event.preventDefault();
+
+    createTodo(todoText);
+
+    setTodoText('');
+  }
+
   return (
-    <form className={styles.form} action="submit">
-      <input type="text" placeholder='Adicione uma nova tarefa' />
-      <button>Criar</button>
+    <form onSubmit={handleCreateTodo} className={styles.form} action='submit'>
+      <input
+        type='text'
+        placeholder='Adicione uma nova tarefa'
+        value={todoText}
+        onChange={handleTodoTyping}
+        required
+      />
+      <button type='submit'>Criar</button>
     </form>
-  )
+  );
 }

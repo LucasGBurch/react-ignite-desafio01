@@ -1,9 +1,15 @@
 import todoClipboard from '../assets/todoClipboard.svg';
+import { Todo } from '../todo.model';
 import { TodoItem } from './TodoItem';
 
 import styles from './TodoList.module.css';
 
-export function TodoList() {
+interface TodoListProps {
+  items: Todo[];
+  deleteTodo: (id: string) => void;
+}
+
+export function TodoList({ items, deleteTodo }: TodoListProps) {
   const noItemsContent = (
     <div className={styles['todo__empty']}>
       <img
@@ -22,7 +28,9 @@ export function TodoList() {
 
   const listContent = (
     <ul className={styles['todo__list']}>
-      <TodoItem />
+        {items.map((todo) => (
+          <TodoItem {...todo} key={todo.id} onDeleteTodo={() => deleteTodo(todo.id)} />
+        ))}
     </ul>
   );
 

@@ -1,18 +1,24 @@
-import { Trash } from 'phosphor-react';
 import { useState } from 'react';
 
+import { Todo } from '../todo.model';
+
+import { Trash } from 'phosphor-react';
 import styles from './TodoItem.module.css';
 
-/** para o input:
-   defaultChecked = {todo.isCompleted}
-    onChange={handleCheckCompletedTodo}
-    id={`checkbox${todo.id}`}
-        */
-export function TodoItem() {
+interface TodoItemProps {
+  item: Todo;
+  onDeleteTodo: (id: string) => void
+}
+
+export function TodoItem({ item, onDeleteTodo }: TodoItemProps) {
   const [isCompleted, setIsCompleted] = useState(false);
 
   function handleCheckIsCompleted() {
     setIsCompleted((state) => !state);
+  }
+
+  function handleDeleteTodo() {
+    onDeleteTodo(item.id);
   }
 
   const todoStatus = isCompleted ? 'items__textDone' : 'items__textNotDone'
@@ -29,7 +35,7 @@ export function TodoItem() {
         <label htmlFor='checkboxId' />
       </div>
       <div className={styles[todoStatus]}><span>Intis vel sed fames integer.</span></div>
-      <button title='Deletar Tarefa'>
+      <button title='Deletar Tarefa' onClick={handleDeleteTodo}>
         <Trash size={24} />
       </button>
     </li>
