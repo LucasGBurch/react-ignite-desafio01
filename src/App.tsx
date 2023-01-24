@@ -13,6 +13,8 @@ import './global.css';
 function App() {
   // Hooks:
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [todosCompleted, setTodosCompleted] = useState<number>(0);
+  // Quantidade das completas para passar como propriedade de apresentação da lista;
 
   // Validações:
   function todoExists(text: string) {
@@ -33,14 +35,14 @@ function App() {
         updatedTodos.unshift({
           id: uuidv4(),
           title: text,
-          concluded: false,
+          completed: false,
         });
 
         return updatedTodos;
       });
     } else if (todoExists(text)) {
       alert('Essa tarefa já existe. Tente digitar outra.');
-    } else if  (todoIsValid(text)) {
+    } else if (!todoIsValid(text)) {
       alert('Tarefa deve ter pelo menos 3 caracteres.');
     }
   }
@@ -50,7 +52,42 @@ function App() {
       return todo.id !== todoId;
     });
 
+    const todoToBeDeleted = todos.filter((todo) => {
+      return todo.id === todoId;
+    });
+
+    // Tinha que diminuir uma do estado das completas aqui em deletar também!
+    // Mas só se estiver completa!
+    if (todoToBeDeleted[0].completed) {
+      setTodosCompleted((prevState) => {
+        return prevState - 1;
+      });
+    }
+
     setTodos(todoWithoutDeletedOne);
+  }
+
+  function handleUpdateTodo(todoId: string, completed: boolean) {
+    const updatedTodo = todos.filter((todo) => {
+      return todo.id === todoId;
+    });
+    // Testando a lógica:
+    // console.log('antes:' + updatedTodo[0].completed)
+    updatedTodo[0].completed = !completed;
+    // console.log('depois:' + updatedTodo[0].completed)
+
+    if (updatedTodo[0].completed) {
+      setTodosCompleted((prevState) => {
+        return prevState + 1;
+      });
+    } else {
+      setTodosCompleted((prevState) => {
+        return prevState - 1;
+      });
+    }
+
+    // Teste da lógica
+    // console.log(todosCompleted);
   }
 
   return (
@@ -58,7 +95,12 @@ function App() {
       <Header />
       <div className={styles['todo__container']}>
         <NewTodo createTodo={handleAddTodo} />
-        <TodoList deleteTodo={handleDeleteTodo} items={todos} />
+        <TodoList
+          deleteTodo={handleDeleteTodo}
+          updateTodo={handleUpdateTodo}
+          completedTodos={todosCompleted}
+          items={todos}
+        />
       </div>
     </div>
   );

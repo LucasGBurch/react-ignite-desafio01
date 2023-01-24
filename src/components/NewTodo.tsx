@@ -1,5 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 
+import { PlusCircle } from 'phosphor-react';
 import styles from './NewTodo.module.css';
 
 interface NewTodoProps {
@@ -30,7 +31,9 @@ export function NewTodo({ createTodo }: NewTodoProps) {
         onChange={handleTodoTyping}
         required
       />
-      <button type='submit'>Criar</button>
+      <button type='submit'>
+        Criar <PlusCircle size={20} />
+      </button>
     </form>
   );
 }

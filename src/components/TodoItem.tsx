@@ -7,14 +7,16 @@ import styles from './TodoItem.module.css';
 
 interface TodoItemProps {
   item: Todo;
-  onDeleteTodo: (id: string) => void
+  onDeleteTodo: (id: string) => void;
+  onUpdateTodo: (id: string, completed: boolean) => void;
 }
 
-export function TodoItem({ item, onDeleteTodo }: TodoItemProps) {
+export function TodoItem({ item, onDeleteTodo, onUpdateTodo }: TodoItemProps) {
   const [isCompleted, setIsCompleted] = useState(false);
 
   function handleCheckIsCompleted() {
     setIsCompleted((state) => !state);
+    onUpdateTodo(item.id, isCompleted);
   }
 
   function handleDeleteTodo() {
@@ -28,16 +30,17 @@ export function TodoItem({ item, onDeleteTodo }: TodoItemProps) {
       <div className={styles['items__custom-checkbox']}>
         <input
           checked={isCompleted}
-          onClick={handleCheckIsCompleted}
-          id='checkboxId'
-          type='radio'
+          onChange={handleCheckIsCompleted}
+          id={item.id}
+          type='checkbox'
         />
-        <label htmlFor='checkboxId' />
+        <label htmlFor={item.id} />
       </div>
-      <div className={styles[todoStatus]}><span>Intis vel sed fames integer.</span></div>
+      <div className={styles[todoStatus]}><span>{item.title}</span></div>
       <button title='Deletar Tarefa' onClick={handleDeleteTodo}>
         <Trash size={24} />
       </button>
     </li>
   );
 }
+

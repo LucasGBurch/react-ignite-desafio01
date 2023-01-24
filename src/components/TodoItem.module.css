@@ -8,9 +8,15 @@
 
   display: flex;
 
+  margin-bottom: 12px;
+
   padding: 16px;
 
   width: 46rem;
+}
+
+.items:last-child {
+  margin-bottom: 0;
 }
 
 .items__custom-checkbox input {
@@ -92,11 +98,19 @@
     margin-right: 6rem;
     width: 22rem;
   }
+
+  .items span {
+    width: 15rem;
+  }
 }
 
 @media (max-width: 420px) {
   .items {
     margin-right: 10rem;
     width: 18rem;
+  }
+
+  .items span {
+    width: 11rem;
   }
 }

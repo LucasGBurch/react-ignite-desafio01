@@ -24,12 +24,16 @@
 }
 
 .form button {
+  align-items: center;
   background-color: var(--blue-dark);
   border: none;
   border-radius: 8px;
   color: var(--gray-100);
   cursor: pointer;
+  display: flex;
+  
   height: 3.25rem;
+  justify-content: space-evenly;
   margin-left: 8px;
   width: 5.625rem;
 }
@@ -55,6 +59,7 @@
   }
 
   .form button {
+    flex-direction: column;
     width: 4rem;
   }
 }
