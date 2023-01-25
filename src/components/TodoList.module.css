@@ -83,13 +83,17 @@
   }
 
   .todo__list {
-    width: 27.625rem;
+    width: 25.625rem;
   }
 }
 
 @media (max-width: 420px) {
   .container {
     width: 18rem;
+  }
+
+  .todo__list {
+    width: 20rem;
   }
 
   .todoCreated__text {
