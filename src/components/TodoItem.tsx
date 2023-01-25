@@ -1,33 +1,46 @@
-import { Trash } from 'phosphor-react';
 import { useState } from 'react';
 
+import { Todo } from '../todo.model';
+
+import { Trash } from 'phosphor-react';
 import styles from './TodoItem.module.css';
 
-/** para o input:
-   defaultChecked = {todo.isCompleted}
-    onChange={handleCheckCompletedTodo}
-    id={`checkbox${todo.id}`}
-        */
-export function TodoItem() {
+interface TodoItemProps {
+  item: Todo;
+  onDeleteTodo: (id: string) => void;
+  onUpdateTodo: (id: string, completed: boolean) => void;
+}
+
+export function TodoItem({ item, onDeleteTodo, onUpdateTodo }: TodoItemProps) {
   const [isCompleted, setIsCompleted] = useState(false);
 
   function handleCheckIsCompleted() {
     setIsCompleted((state) => !state);
+    onUpdateTodo(item.id, isCompleted);
   }
 
+  function handleDeleteTodo() {
+    onDeleteTodo(item.id);
+  }
+
+  const todoStatus = isCompleted ? 'items__textDone' : 'items__textNotDone'
+
   return (
-    <div className={styles.items}>
-      <input
-        defaultChecked={isCompleted}
-        onClick={handleCheckIsCompleted}
-        id='checkboxId'
-        type='radio'
-      />
-      <label htmlFor='checkboxId' />
-      <li>Item de teste</li>
-      <button title='Deletar Tarefa'>
+    <li className={styles.items}>
+      <div className={styles['items__custom-checkbox']}>
+        <input
+          checked={isCompleted}
+          onChange={handleCheckIsCompleted}
+          id={item.id}
+          type='checkbox'
+        />
+        <label htmlFor={item.id} />
+      </div>
+      <div className={styles[todoStatus]}><span>{item.title}</span></div>
+      <button title='Deletar Tarefa' onClick={handleDeleteTodo}>
         <Trash size={24} />
       </button>
-    </div>
+    </li>
   );
 }
+
