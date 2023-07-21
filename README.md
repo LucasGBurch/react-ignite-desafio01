@@ -21,7 +21,7 @@
 
   - Para instalar as dependências necessárias para rodar a aplicação, é preciso:
     
-    - Depois, clique com o botão direito no diretório do projeto "...\react-ignite-desafio01" e clique em "abrir terminal integrado".
+    - Clicar com o botão direito no diretório do projeto "...\react-ignite-desafio01" e clique em "abrir terminal integrado".
     
     - No terminal, execute o comando **"npm install" ou a abreviação "npm i"**. Isso é necessário porque a pasta de node_modules com as dependências necessárias para a aplicação não costumam ir para os repositórios devido ao seu peso no commit;
 
